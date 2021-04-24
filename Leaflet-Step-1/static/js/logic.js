@@ -19,3 +19,29 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
   id: "mapbox/streets-v11",
   accessToken: API_KEY
 }).addTo(myMap);
+
+
+// plot the markers on map
+d3.json(url, function(data) {
+
+    for (var i = 0; i < data.features.length; i++) {
+        
+        // Extract coordinates, magnitude, location name, and date of earthquakes
+        var coord = data.features[i].geometry.coordinates;
+        var mag = data.features[i].properties.mag;
+        var date = new Date(data.features[i].properties.time);
+        var loc_name = data.features[i].properties.place;
+
+        // Circle markers
+        L.circle([coord[1], coord[0]], {
+            color: "#E3E3E3",
+            weight: 1,
+            fillColor: getColor(mag),
+            fillOpacity: 0.5,
+            radius: mag * 50000 // Adjust radius size
+        }).bindPopup("<h1>" + loc_name + "</h1><hr><h3> Magnitude: " + mag + "</h3>" + "<p>" + date + "</p>") // Add tooltip
+        .addTo(myMap);
+    }
+});
+
+
