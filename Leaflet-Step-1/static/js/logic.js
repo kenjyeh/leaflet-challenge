@@ -39,9 +39,36 @@ d3.json(url, function(data) {
             fillColor: getColor(mag),
             fillOpacity: 0.5,
             radius: mag * 50000 // Adjust radius size
-        }).bindPopup("<h1>" + loc_name + "</h1><hr><h3> Magnitude: " + mag + "</h3>" + "<p>" + date + "</p>") // Add tooltip
+        }).bindPopup("<h2>" + loc_name + "</h2><hr><h3> Magnitude: " + mag + "</h3>" + "<p>" + date + "</p>") // Add tooltip
         .addTo(myMap);
     }
 });
 
+// Function to set marker color based on magnitude using a ternary operator
+function getColor(mag){
+    return mag > 8 ? "#FF0000":
+        mag > 7 ? "#FF7F50" :
+        mag > 6 ? "#FF8C00":
+        mag > 5 ? "#FFFF00":
+        mag > 4 ? "#008000":
+        "#006400";
+}
 
+
+
+// Create magnitude legend
+var legend = L.control({ position: "bottomright" }); // Add layer control
+
+legend.onAdd = function(map) {
+    var div = L.DomUtil.create("div", "legend");
+    div.innerHTML += "<h4>Magnitude</h4>";
+    div.innerHTML += "<i style='background: #006400'></i><span>0-4</span><br>";
+    div.innerHTML += "<i style='background: #008000'></i><span>4-5</span><br>";
+    div.innerHTML += "<i style='background: #FFFF00'></i><span>5-6</span><br>";
+    div.innerHTML += "<i style='background: #FF8C00'></i><span>6-7</span><br>";
+    div.innerHTML += "<i style='background: #FF7F50'></i><span>7-8</span><br>";
+    div.innerHTML += "<i style='background: #FF0000'></i><span>8+</span><br>";
+    return div;
+  };
+
+legend.addTo(myMap);
