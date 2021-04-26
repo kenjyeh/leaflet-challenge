@@ -6,5 +6,5 @@ Using leaflet, I created a circle layer that reflect the magnitude of the earthq
 
 Screenshot of the map:
 
-![Image of Earthquake Map](image/leaflet-challenge.jpg)
+![Image of Earthquake Map](image/leaflet-challenge.JPG)
 
