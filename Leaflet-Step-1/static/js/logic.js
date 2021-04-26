@@ -26,31 +26,32 @@ d3.json(url, function(data) {
 
     for (var i = 0; i < data.features.length; i++) {
         
-        // Extract coordinates, magnitude, location name, and date of earthquakes
+        // Extract coordinates, magnitude, depth, location name, and date of earthquakes
         var coord = data.features[i].geometry.coordinates;
         var mag = data.features[i].properties.mag;
         var date = new Date(data.features[i].properties.time);
         var loc_name = data.features[i].properties.place;
+        var depth = data.features[i].geometry.coordinates[2];
 
         // Circle markers
         L.circle([coord[1], coord[0]], {
             color: "#E3E3E3",
             weight: 1,
-            fillColor: getColor(mag),
+            fillColor: getColor(depth),
             fillOpacity: 0.5,
             radius: mag * 50000 // Adjust radius size
-        }).bindPopup("<h2>" + loc_name + "</h2><hr><h3> Magnitude: " + mag + "</h3>" + "<p>" + date + "</p>") // Add tooltip
+        }).bindPopup("<h2>" + loc_name + "</h2><h3> Magnitude: " + mag + "</h3>" + "<p>" + date + "</p>" + "<h3> Depth: " + depth + "</h3>" ) // Add tooltip
         .addTo(myMap);
     }
 });
 
-// Function to set marker color based on magnitude using a ternary operator
-function getColor(mag){
-    return mag > 8 ? "#FF0000":
-        mag > 7 ? "#FF7F50" :
-        mag > 6 ? "#FF8C00":
-        mag > 5 ? "#FFFF00":
-        mag > 4 ? "#008000":
+// function to get color based on depth of earthquake
+function getColor(depth){
+    return depth > 90 ? "#FF0000":
+        depth > 70 ? "#FF7F50" :
+        depth > 50 ? "#FF8C00":
+        depth > 30 ? "#FFFF00":
+        depth > 10 ? "#008000":
         "#006400";
 }
 
@@ -61,7 +62,7 @@ var legend = L.control({ position: "bottomright" }); // Add layer control
 
 legend.onAdd = function(map) {
     var div = L.DomUtil.create("div", "legend");
-    div.innerHTML += "<h4>Magnitude</h4>";
+    div.innerHTML += "<h4>Depth</h4>";
     div.innerHTML += "<i style='background: #006400'></i><span>0-4</span><br>";
     div.innerHTML += "<i style='background: #008000'></i><span>4-5</span><br>";
     div.innerHTML += "<i style='background: #FFFF00'></i><span>5-6</span><br>";
