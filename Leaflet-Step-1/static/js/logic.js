@@ -63,12 +63,12 @@ var legend = L.control({ position: "bottomright" }); // Add layer control
 legend.onAdd = function(map) {
     var div = L.DomUtil.create("div", "legend");
     div.innerHTML += "<h4>Depth</h4>";
-    div.innerHTML += "<i style='background: #006400'></i><span>0-4</span><br>";
-    div.innerHTML += "<i style='background: #008000'></i><span>4-5</span><br>";
-    div.innerHTML += "<i style='background: #FFFF00'></i><span>5-6</span><br>";
-    div.innerHTML += "<i style='background: #FF8C00'></i><span>6-7</span><br>";
-    div.innerHTML += "<i style='background: #FF7F50'></i><span>7-8</span><br>";
-    div.innerHTML += "<i style='background: #FF0000'></i><span>8+</span><br>";
+    div.innerHTML += "<i style='background: #006400'></i><span>Below 10</span><br>";
+    div.innerHTML += "<i style='background: #008000'></i><span>10-30</span><br>";
+    div.innerHTML += "<i style='background: #FFFF00'></i><span>30-50</span><br>";
+    div.innerHTML += "<i style='background: #FF8C00'></i><span>50-70</span><br>";
+    div.innerHTML += "<i style='background: #FF7F50'></i><span>70-90</span><br>";
+    div.innerHTML += "<i style='background: #FF0000'></i><span>90+</span><br>";
     return div;
   };
 
